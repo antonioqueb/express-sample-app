@@ -1,16 +1,26 @@
-import express from 'express';
+const express = require('express');
+const { Configuration, OpenAIApi } = require("openai");
+const cors = require('cors');
+
 const app = express();
+app.use(cors());
+app.use(express.json()); // Esta línea permite a Express.js parsear JSON
 
-app.get('/', (req, res) => {
-    res.send('Choo Choo! Welcome to your Express app 🚅');
-})
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
-app.get("/json", (req, res) => {
-    res.json({"Choo Choo": "Welcome to your Express app 🚅"});
-})
+app.post('/api/completion', async (req, res) => {
+  try {
+    const requestBody = req.body;
+    const chatCompletion = await openai.createChatCompletion(requestBody);
+    res.send(chatCompletion.data.choices[0].message);
+  } catch (error) {
+    res.status(500).send('Error:', error);
+  }
+});
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
