@@ -17,7 +17,7 @@ app.post('/api/completion', async (req, res) => {
   try {
     const requestBody = req.body;
     const chatCompletion = await openai.createChatCompletion(requestBody);
-    res.send(chatCompletion.data.choices[0].message);
+    res.json({ content: chatCompletion.data.choices[0].message.content });
   } catch (error) {
     res.status(500).send('Error:', error);
   }
