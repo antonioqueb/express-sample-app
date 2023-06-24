@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.cjs"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
