@@ -2,6 +2,7 @@ import express from 'express';
 import { Configuration, OpenAIApi } from "openai";
 import cors from 'cors';
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -16,7 +17,7 @@ app.post('/api/completion', async (req, res) => {
   try {
     const requestBody = req.body;
     const chatCompletion = await openai.createChatCompletion(requestBody);
-    res.send(chatCompletion.data.choices[0].message);
+    res.send(chatCompletion.data.choices[0].message.content);
   } catch (error) {
     res.status(500).send('Error:', error);
   }
