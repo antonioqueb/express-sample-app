@@ -15,13 +15,18 @@ const openai = new OpenAIApi(configuration);
 
 app.post('/api/completion', async (req, res) => {
   try {
-    const requestBody = req.body;
+    const requestBody = {
+      ...req.body,
+      max_tokens: 150,
+    };
+    
     const chatCompletion = await openai.createChatCompletion(requestBody);
     res.json({ content: chatCompletion.data.choices[0].message.content });
   } catch (error) {
     res.status(500).send('Error:', error);
   }
 });
+
 
 app.get('/', (req, res) => {
   res.send('Choo Choo! Welcome to your Express app 🚅');
