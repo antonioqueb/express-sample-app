@@ -17,7 +17,7 @@ app.post('/api/completion', async (req, res) => {
   try {
     const requestBody = {
       ...req.body,
-      max_tokens: 150,
+      max_tokens: 250,
     };
     
     const chatCompletion = await openai.createChatCompletion(requestBody);
@@ -27,14 +27,6 @@ app.post('/api/completion', async (req, res) => {
   }
 });
 
-
-app.get('/', (req, res) => {
-  res.send('Choo Choo! Welcome to your Express app 🚅');
-})
-
-app.get("/json", (req, res) => {
-  res.json({"Choo Choo": "Welcome to your Express app 🚅"});
-})
 
 const port = process.env.PORT || 3000;
 
